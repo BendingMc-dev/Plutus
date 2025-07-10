@@ -1,0 +1,8 @@
+name: Plutus
+version: '1.0'
+main: me.ryandusty.plutus.Plutus
+api-version: '1.21'
+load: STARTUP
+authors: [ RyanDusty ]
+description: BMC Shop Plugin
+website: https://github.com/RyanDusty
