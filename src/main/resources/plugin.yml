@@ -6,3 +6,9 @@ load: STARTUP
 authors: [ RyanDusty ]
 description: BMC Shop Plugin
 website: https://github.com/RyanDusty
+
+softdepend:
+  - Vault
+  - ItemsAdder
+  - BorealCore
+  - PlaceholderAPI
