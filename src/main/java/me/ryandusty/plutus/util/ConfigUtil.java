@@ -5,9 +5,9 @@ import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
 
-public class ConfigManager {
+public class ConfigUtil {
     private static Plutus plugin;
-    public ConfigManager(Plutus plugin) {
+    public ConfigUtil(Plutus plugin) {
         this.plugin = plugin;
 
     }
@@ -23,7 +23,9 @@ public class ConfigManager {
         }
             return YamlConfiguration.loadConfiguration(file);
         }
-
+    public static void reload() {
+        getConfig();
+    }
     }
 
 

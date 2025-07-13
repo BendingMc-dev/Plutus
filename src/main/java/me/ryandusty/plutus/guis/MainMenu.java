@@ -1,19 +1,20 @@
-package me.ryandusty.plutus.util;
+package me.ryandusty.plutus.guis;
 
 import me.ryandusty.plutus.Plutus;
+import me.ryandusty.plutus.util.ConfigUtil;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 
-public class ShopGUI implements InventoryHolder {
+public class MainMenu implements InventoryHolder {
 
     private Plutus plugin;
     private Inventory inventory;
-    private int inventorySize = ConfigManager.getConfig().getInt("Gui.Shop.Size");
+    private int inventorySize = ConfigUtil.getConfig().getInt("Gui.Shop.Size");
 
-    public ShopGUI(Plutus plugin) {
+    public MainMenu(Plutus plugin) {
         this.plugin = plugin;
     }
-    public void shopGui(Plutus plugin) {
+    public void mainMenuGui(Plutus plugin) {
         this.inventory = plugin.getServer().createInventory(this,inventorySize);
     }
 
