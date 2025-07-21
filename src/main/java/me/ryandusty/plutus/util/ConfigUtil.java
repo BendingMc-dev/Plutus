@@ -25,7 +25,8 @@ public class ConfigUtil {
         }
     public static void reload() {
         getConfig();
+
     }
-    }
+}
 
 
