@@ -1,42 +1,58 @@
+package me.ryandusty.plutus.db;
+
+import me.ryandusty.plutus.Plutus;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 public class Database {
-  private Plutus plutus;
-  private String path = "jbdc:sqlite:database.db";
-  private DriverManager connection = DriverManager.getConnection(path);
-  
+  private final Plutus plutus;
+  private final String path = "jdbc:sqlite:database.db";
+  private Connection connection;
+
   public Database(Plutus plutus) {
     this.plutus = plutus;
-    this.path = path;
-  }
-  public final static void createDB() {
-    try (connection) {
-      if (connection != null) {
-        var meta = connection.getMetaData();
-          plutus.getLogger().info("Driver established:" + meta);
-          plutus.getLogger().info("A new database has been created.");
-      }
+    try {
+      this.connection = DriverManager.getConnection(path);
+      var meta = connection.getMetaData();
+      plutus.getLogger().info("Driver established: " + meta.getDriverName());
+      plutus.getLogger().info("A new database has been created or connected to.");
     } catch (SQLException e) {
-      plutus.getLogger().info(e.getMessage());
+      plutus.getLogger().severe("Failed to connect to the database: " + e.getMessage());
     }
   }
-  public static void createTable() {
-    String table = "CREATE TABLE if not EXISTS items (" +
-                   "id INTEGER PRIMARY KEY," +
-                   "material text NOT NULL," +
-                   "cost INTEGER NOT NULL," +
-                   "elasticity INTEGER," +
-                   "support INTEGER )";
-    try (connection);
-    var statement = connection.createStatement()) {
+
+  public void createTable() {
+    String table = "CREATE TABLE IF NOT EXISTS items (" +
+            "id INTEGER PRIMARY KEY," +
+            "material TEXT NOT NULL," +
+            "cost INTEGER NOT NULL," +
+            "elasticity INTEGER," +
+            "support INTEGER)";
+    try (Statement statement = connection.createStatement()) {
       statement.execute(table);
-    } catch (Exception e) {
-      plutus.getLogger().info("Exception e, failed to create table." + e);
+    } catch (SQLException e) {
+      plutus.getLogger().severe("Exception e, failed to create table: " + e.getMessage());
     }
   }
-  public static String getPath() {
+
+  public String getPath() {
     return this.path;
   }
-  public final static DriverManager getConnection() {
-    return this.connection;
+
+  public Connection getConnection() {
+      return connection;
+  }
+
+  public void closeConnection() {
+    try {
+      if (this.connection != null && !this.connection.isClosed()) {
+        this.connection.close();
+      }
+    } catch (SQLException e) {
+      plutus.getLogger().severe("Failed to close database connection: " + e.getMessage());
+    }
   }
 }

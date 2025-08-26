@@ -4,7 +4,7 @@ import com.mojang.brigadier.tree.LiteralCommandNode;
 import io.papermc.paper.command.brigadier.CommandSourceStack;
 import io.papermc.paper.command.brigadier.Commands;
 import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents;
-import me.ryandusty.plutus.util.CommandsUtil;
+import me.ryandusty.plutus.db.Database;
 import net.milkbowl.vault.chat.Chat;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.permission.Permission;
@@ -20,6 +20,13 @@ public final class Plutus extends JavaPlugin {
 
     @Override
     public void onEnable() {
+
+
+        Database db = new Database(this);
+        db.getConnection();
+        db.createTable();
+        db.closeConnection();
+
 
         LiteralCommandNode<CommandSourceStack> buildCommands = Commands.literal("plutus")
                 .then(Commands.literal("reload")
