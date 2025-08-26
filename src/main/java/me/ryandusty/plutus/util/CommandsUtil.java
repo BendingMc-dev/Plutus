@@ -38,6 +38,7 @@ public class CommandsUtil {
     public static void executeCommands() {
         Commands.literal("plutus")
                 .then(Commands.literal("reload"))
+                .requires(source -> source.hasPermission("plutus.reload"))
                 .executes(ctx -> {
                     CommandSender sender = ctx.getSource().getSender();
                     Entity executor = ctx.getSource().getExecutor();
@@ -57,6 +58,7 @@ public class CommandsUtil {
 
                 })
                 .then(Commands.literal("version"))
+                .requires(source -> source.hasPermission("plutus.version"))
                 .executes(ctx -> {
                     String version = plugin.getDescription().getVersion();
                     CommandSender sender = ctx.getSource().getSender();
@@ -76,6 +78,7 @@ public class CommandsUtil {
                     sender.sendMessage("Plutus version: " + version);
                     return Command.SINGLE_SUCCESS;
                 }).then(Commands.literal("shop"))
+                .requires(source -> source.hasPermission("plutus.shop"))
                 .executes(ctx -> {
                     CommandSender sender = ctx.getSource().getSender();
                     CommandSender console = plugin.getServer().getConsoleSender();
@@ -94,6 +97,7 @@ public class CommandsUtil {
 
                     return Command.SINGLE_SUCCESS;
                 }).then(Commands.literal("ah"))
+                .requires(source -> source.hasPermission("plutus.ah"))
                 .executes(ctx -> {
                     CommandSender sender = ctx.getSource().getSender();
                     CommandSender console = plugin.getServer().getConsoleSender();
