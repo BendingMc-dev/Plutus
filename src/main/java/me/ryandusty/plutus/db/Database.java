@@ -23,8 +23,9 @@ public class Database {
     String table = "CREATE TABLE if not EXISTS items (" +
                    "id INTEGER PRIMARY KEY," +
                    "material text NOT NULL," +
-                   "cost INTEGER NOT NULL"
-                   ")";   
+                   "cost INTEGER NOT NULL," +
+                   "elasticity INTEGER," +
+                   "support INTEGER )";
     try (connection);
     var statement = connection.createStatement()) {
       statement.execute(table);
