@@ -24,15 +24,14 @@ public class CommandsUtil {
     public static void defineCommands() {
 
         LiteralArgumentBuilder<CommandSourceStack> shop = Commands.literal("shop");
-        LiteralArgumentBuilder<CommandSourceStack> reload = Commands.literal("reload");
-        LiteralArgumentBuilder<CommandSourceStack> version = Commands.literal("version");
+        LiteralArgumentBuilder<CommandSourceStack> reload = Commands.literal("reload"); // Admin command
+        LiteralArgumentBuilder<CommandSourceStack> version = Commands.literal("version"); // Admin command
         LiteralArgumentBuilder<CommandSourceStack> ah = Commands.literal("ah");
-
-        LiteralArgumentBuilder<CommandSourceStack> plutus = Commands.literal("plutus")
+        LiteralArgumentBuilder<CommandSourceStack> plutus = Commands.literal("plutus");
                 .then(shop)
-                .then(reload)
-                .then(version)
-                .then(ah);
+                .then(ah)
+                .then(reload) // Admin command
+                .then(version); // Admin command
     }
 
     public static void executeCommands() {
